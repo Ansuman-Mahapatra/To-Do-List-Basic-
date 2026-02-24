@@ -48,11 +48,9 @@ function App() {
 
   return (
     <div className="app-container">
-      <header style={{ marginBottom: '2rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-          <h1 style={{ fontWeight: 800, fontSize: '2.5rem', background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-            Tasks
-          </h1>
+      <header>
+        <div>
+          <h1 className="title-gradient">Tasks</h1>
         </div>
 
         <TodoInput onAdd={handleAddTodo} />
@@ -61,16 +59,23 @@ function App() {
 
       <main>
         {filteredTodos.length > 0 ? (
-          filteredTodos.map(todo => (
-            <TodoItem
-              key={todo.id}
-              todo={todo}
-              onToggle={handleToggleTodo}
-              onDelete={handleDeleteTodo}
-            />
-          ))
+          <div className="todo-list">
+            {filteredTodos.map(todo => (
+              <TodoItem
+                key={todo.id}
+                todo={todo}
+                onToggle={handleToggleTodo}
+                onDelete={handleDeleteTodo}
+              />
+            ))}
+          </div>
         ) : (
-          <div style={{ textAlign: 'center', padding: '3rem', color: '#64748b' }}>
+          <div className="empty-state">
+            <svg className="empty-state-icon" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <h3>All caught up!</h3>
             <p>No {filter !== 'all' ? filter : ''} tasks found.</p>
           </div>
         )}
